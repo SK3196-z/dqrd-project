@@ -373,6 +373,6 @@ if (analyzeAgainBtn) {
 
 if (sendMailBtn) {
   sendMailBtn.onclick = () => {
-    alert('Send Mail functionality is not implemented yet.');
+    alert('Send Mail Functionality Coming Soon.....');
   };
 }
