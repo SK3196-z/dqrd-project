@@ -39,6 +39,7 @@ class ReadinessRowException:
     pass_metric: str
     actual_status: str
     reason: str
+    remarks: str = ""
 
 
 @dataclass
@@ -399,6 +400,15 @@ PASS_METRIC_COLUMN_ALIASES = {
     "expected status",
     "target",
     "no impact",
+}
+
+REMARKS_COLUMN_ALIASES = {
+    "remarks",
+    "remark",
+    "notes",
+    "note",
+    "comments",
+    "comment",
 }
 
 PASSING_PHRASES = (
@@ -901,9 +911,11 @@ def analyze_issue_readiness(
     for row in table_rows:
         status_key = _find_column_name(row, STATUS_COLUMN_ALIASES)
         pass_metric_key = _find_column_name(row, PASS_METRIC_COLUMN_ALIASES)
-        
+        remarks_key = _find_column_name(row, REMARKS_COLUMN_ALIASES)
+
         actual_status = _normalize_text(row.get(status_key, "") if status_key else "")
         pass_metric = _normalize_text(row.get(pass_metric_key, "") if pass_metric_key else "")
+        row_remarks = _normalize_text(row.get(remarks_key, "") if remarks_key else "")
 
         # FIX: Skip rows where both status and expected metric are empty or blank.
         if not actual_status and not pass_metric:
@@ -925,6 +937,7 @@ def analyze_issue_readiness(
                     pass_metric=pass_metric or "(no pass metric column)",
                     actual_status=actual_status or "(blank- Status missing)",
                     reason=status_reason,
+                    remarks=row_remarks,
                 )
             )
             continue
@@ -941,6 +954,7 @@ def analyze_issue_readiness(
                         pass_metric=pass_metric,
                         actual_status=actual_status,
                         reason=reason,
+                        remarks=row_remarks,
                     )
                 )
             continue
@@ -957,6 +971,7 @@ def analyze_issue_readiness(
                         pass_metric=pass_metric or "(no pass metric column)",
                         actual_status=actual_status,
                         reason=reason,
+                        remarks=row_remarks,
                     )
                 )
 
@@ -1589,6 +1604,7 @@ def run_web_server(host: str, port: int) -> int:
                             "pass_metric": exc_row.pass_metric,
                             "actual_status": exc_row.actual_status,
                             "reason": exc_row.reason,
+                            "remarks": exc_row.remarks,
                             "assignee_display": analysis.assignee_display,
                             "assignee_username": analysis.assignee_username,
                             "assignee_account_id": analysis.assignee_account_id,

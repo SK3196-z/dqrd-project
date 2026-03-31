@@ -266,6 +266,7 @@ function displayResults(payload) {
         <div class="exception-detail"><strong>Row:</strong> ${exc.row_name || 'Unknown'}</div>
         <div class="exception-detail"><strong>Expected:</strong> ${exc.pass_metric || 'N/A'}</div>
         <div class="exception-detail"><strong>Actual:</strong> ${exc.actual_status || 'N/A'}</div>
+        ${exc.remarks ? `<div class="exception-detail"><strong>Remarks:</strong> ${escapeHtml(exc.remarks)}</div>` : ''}
       </div>
     `;
         }
