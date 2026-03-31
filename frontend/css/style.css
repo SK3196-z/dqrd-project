@@ -1326,6 +1326,37 @@ main {
   box-shadow: 0 10px 28px rgba(76, 175, 80, 0.5);
 }
 
+
+.btn-sendmail {
+  background: linear-gradient(135deg, #ff9800 0%, #e65100 100%);
+  color: var(--white) !important;
+  box-shadow: 0 8px 24px rgba(255, 152, 0, 0.4);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: var(--transition-smooth);
+  min-width: 200px;
+  /* Change display to 'none' here, but we will use 'flex' in JS */
+  display: none; 
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* Ensure the hover state doesn't break visibility */
+.btn-sendmail:hover {
+  box-shadow: 0 14px 36px rgba(255, 152, 0, 0.6);
+  transform: translateY(-5px);
+  background: linear-gradient(135deg, #fb8c00 0%, #ef6c00 100%);
+  color: var(--white) !important;
+}
+
+.btn-sendmail:active {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0, 114, 206, 0.5);
+}
+
+
+
 .btn-analyze-again {
   background: linear-gradient(135deg, var(--primary-blue) 0%, #0057a3 100%);
   color: var(--white);
@@ -1427,6 +1458,11 @@ main {
   .btn-analyze-again {
     width: 100%;
     min-width: 100%;
+  }
+  .btn-sendmail {
+    width: 100%;
+    min-width: 100%;
+    margin-bottom: 0.5rem;
   }
 
   .steps-grid {

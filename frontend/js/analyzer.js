@@ -10,6 +10,7 @@ const exceptionsSection = document.getElementById('exceptionsSection');
 const reportPath = document.getElementById('reportPath');
 const downloadBtn = document.getElementById('downloadBtn');
 const analyzeAgainBtn = document.getElementById('analyzeAgainBtn');
+const sendMailBtn = document.getElementById('sendMailBtn'); 
 
 // Store the current excel path for download
 let currentExcelPath = null;
@@ -307,6 +308,13 @@ function displayResults(payload) {
   // Show buttons
   downloadBtn.style.display = 'inline-block';
   analyzeAgainBtn.style.display = 'inline-block';
+  if (sendMailBtn) {
+    if (summary.attention_count > 0) {
+      sendMailBtn.style.display = 'inline-block';
+    } else {
+      sendMailBtn.style.display = 'none';
+    }
+  }
 
   // Scroll to results
   setTimeout(() => {
@@ -353,6 +361,7 @@ if (analyzeAgainBtn) {
     resultsSection.classList.remove('show');
     downloadBtn.style.display = 'none';
     analyzeAgainBtn.style.display = 'none';
+    sendMailBtn.style.display = 'none';
     
     // Focus on input field
     epicIdInput.focus();
@@ -360,4 +369,10 @@ if (analyzeAgainBtn) {
     // Scroll to form
     analyzerForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
+}
+
+if (sendMailBtn) {
+  sendMailBtn.onclick = () => {
+    alert('Send Mail functionality is not implemented yet.');
+  };
 }
