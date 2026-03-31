@@ -741,6 +741,13 @@ def _matches_pass_metric(pass_metric: str, actual_status: str) -> tuple[bool, st
     if normalized_actual in metric_values:
         return True, "Exact pass metric match"
 
+    # Special case: answer of "No" can satisfy no-change / NA expectations.
+    if normalized_actual == "no" and any(
+        value.startswith("no") or value in {"na", "n/a", "not applicable"}
+        for value in metric_values
+    ):
+        return True, "No status satisfies no-change/NA pass metric"
+
     # Treat status variants like MV2 as equivalent to MV when MV is an acceptable pass metric.
     base_actual = _re.sub(r"\d+$", "", normalized_actual)
     if base_actual and base_actual != normalized_actual and base_actual in metric_values:
